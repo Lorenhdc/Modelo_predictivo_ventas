@@ -48,4 +48,4 @@ def train():
     pickle.dump(model, open('ad_model.pkl', 'wb'))
 
 
-#app.run()
+app.run()
