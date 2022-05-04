@@ -5,9 +5,13 @@ from sklearn.linear_model import Lasso
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
+os.chdir(os.path.dirname(__file__))
+
+
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
+model = pickle.load(open('ad_model.pkl','rb'))
 
 @app.route('/', methods=['GET'])
 def home():
@@ -16,7 +20,6 @@ def home():
 
 @app.route('/api/v1/predict', methods=['GET'])
 def predict():
-    model = pickle.load(open('ad_model','rb'))
 
     tv = request.args.get('tv', None)
     radio = request.args.get('radio', None)
@@ -30,7 +33,6 @@ def predict():
     return jsonify({'predictions': prediction[0]})
 
 @app.route('/api/v1/retrain', methods=['GET'])
-
 def train():
     data = pd.read_csv('data/Advertising.csv', index_col=0)
 
@@ -44,5 +46,7 @@ def train():
 
     pickle.dump(model, open('ad_model.pkl', 'wb'))
 
+    return "model trained and saved"
 
-app.run()
+
+#app.run()
