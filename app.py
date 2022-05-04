@@ -13,10 +13,10 @@ app.config['DEBUG'] = True
 def home():
     return "<h1>Distant Reading Archive</h1><p>This site is a prototype API for distant reading of science fiction novels.</p>"
 
-model = pickle.load(open('ad_model','rb'))
 
 @app.route('/api/v1/predict', methods=['GET'])
 def predict():
+    model = pickle.load(open('ad_model','rb'))
 
     tv = request.args.get('tv', None)
     radio = request.args.get('radio', None)
