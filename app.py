@@ -18,6 +18,8 @@ model = pickle.load(open('ad_model','rb'))
 @app.route('/api/v1/predict', methods=['GET'])
 def predict():
     
+    model = pickle.load(open('ad_model','rb'))
+
     tv = request.args.get('tv', None)
     radio = request.args.get('radio', None)
     newspaper = request.args.get('newspaper', None)
